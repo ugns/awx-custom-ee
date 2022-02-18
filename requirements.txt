@@ -1,0 +1,3 @@
+boto3
+linode-api4 >= 2.0.0
+hvac
