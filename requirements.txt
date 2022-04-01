@@ -1,3 +1,1 @@
-boto3
-linode-api4 >= 2.0.0
-hvac
+git+https://github.com/ansible/ansible-builder.git@devel#egg=ansible-builder

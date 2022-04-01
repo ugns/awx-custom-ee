@@ -1,6 +1,16 @@
 ---
 version: 1
 dependencies:
-  galaxy: requirements.yml
-  python: requirements.txt
-  system: bindep.txt
+  galaxy: _build/requirements.yml
+  python: _build/requirements.txt
+  system: _build/bindep.txt
+
+additional_build_steps:
+  append: 
+    - RUN alternatives --set python /usr/bin/python3
+    - COPY --from=quay.io/project-receptor/receptor:1.0.0a2 /usr/bin/receptor /usr/bin/receptor
+    - RUN mkdir -p /var/run/receptor
+    - ADD run.sh /run.sh
+    - CMD /run/sh
+    - USER 1000
+    - RUN git lfs install
