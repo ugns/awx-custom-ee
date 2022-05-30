@@ -1,0 +1,3 @@
+ansible-builder create
+docker build -t public.ecr.aws/o7g8j1x0/awx-custom-ee:latest context
+docker push public.ecr.aws/o7g8j1x0/awx-custom-ee:latest

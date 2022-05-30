@@ -1,0 +1,2 @@
+python38-devel [platform:rpm compile]
+git-lfs [platform:rpm]
