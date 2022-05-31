@@ -41,6 +41,7 @@ autolabeler:
       - '*.md'
     branch:
       - '/docs{0,1}\/.+/'
+      - '/dependabot\/.*/'
   - label: 'bug'
     branch:
       - '/fix\/.+/'
@@ -49,6 +50,9 @@ autolabeler:
   - label: 'enhancement'
     branch:
       - '/feature\/.+/'
+  - label: 'auto-update'
+    branch:
+      - '/dependabot\/.*/'
 
 change-template: |
   <details>
