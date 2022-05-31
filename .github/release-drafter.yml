@@ -1,6 +1,6 @@
-name-template: 'v$RESOLVED_VERSION'
-tag-template: 'v$RESOLVED_VERSION'
-version-template: '$MAJOR.$MINOR.$PATCH'
+# name-template: 'v$RESOLVED_VERSION'
+# tag-template: 'v$RESOLVED_VERSION'
+# version-template: '$MAJOR.$MINOR.$PATCH'
 version-resolver:
   major:
     labels:
@@ -34,6 +34,21 @@ categories:
 - title: '🤖 Automatic Updates'
   labels:
   - 'auto-update'
+
+autolabeler:
+  - label: 'chore'
+    files:
+      - '*.md'
+    branch:
+      - '/docs{0,1}\/.+/'
+  - label: 'bug'
+    branch:
+      - '/fix\/.+/'
+    title:
+      - '/fix/i'
+  - label: 'enhancement'
+    branch:
+      - '/feature\/.+/'
 
 change-template: |
   <details>
