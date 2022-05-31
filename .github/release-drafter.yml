@@ -54,6 +54,9 @@ autolabeler:
     branch:
       - '/dependabot\/.*/'
 
+exclude-labels:
+  - 'no-release'
+
 change-template: |
   <details>
     <summary>$TITLE @$AUTHOR (#$NUMBER)</summary>
