@@ -7,10 +7,9 @@ on:
       - master
       - production
   pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
+    types: [opened, reopened, synchronize]
+  pull_request_target:
+    types: [opened, reopened, synchronize]
 
 jobs:
   publish:
