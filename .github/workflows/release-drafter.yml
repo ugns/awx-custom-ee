@@ -6,8 +6,6 @@ on:
       - main
       - master
       - production
-  pull_request:
-    types: [opened, reopened, synchronize]
 
 jobs:
   publish:
