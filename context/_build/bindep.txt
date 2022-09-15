@@ -1,2 +1,4 @@
 python38-devel [platform:rpm compile]
+python38-psycopg2 [platform:rpm]
+python38-PyMySQL [platform:rpm]
 git-lfs [platform:rpm]
