@@ -1,4 +1,1 @@
-requests-oauthlib
-boto3
-linode-api4 >= 2.0.0
-hvac
+cryptography==37.0.4

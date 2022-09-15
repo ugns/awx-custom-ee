@@ -1,11 +1,15 @@
 ---
 version: 1
+
 dependencies:
   galaxy: _build/requirements.yml
   python: _build/requirements.txt
   system: _build/bindep.txt
 
 additional_build_steps:
+  prepend: |
+    RUN dnf config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo \
+     && dnf install -y terraform 
   append: 
     - RUN alternatives --set python /usr/bin/python3
     - COPY --from=quay.io/project-receptor/receptor:latest /usr/bin/receptor /usr/bin/receptor
