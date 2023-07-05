@@ -1,20 +1,75 @@
 ---
-version: 1
-
+version: 3
+images:
+  base_image:
+    name: quay.io/centos/centos:stream9
 dependencies:
-  galaxy: _build/requirements.yml
-  python: _build/requirements.txt
-  system: _build/bindep.txt
-
+  ansible_core:
+    # Require minimum of 2.15 to get ansible-inventory --limit option
+    package_pip: ansible-core>=2.15.0rc2,<2.16
+  ansible_runner:
+    package_pip: ansible-runner
+  galaxy: |
+    collections:
+      - name: awx.awx
+      - name: azure.azcollection
+      - name: amazon.aws
+      - name: theforeman.foreman
+      - name: google.cloud
+      - name: openstack.cloud
+      - name: community.vmware
+      - name: ovirt.ovirt
+      - name: kubernetes.core
+      - name: ansible.posix
+      - name: ansible.windows
+      - name: redhatinsights.insights
+      - name: fortinet.fortios
+      - name: community.aws
+      # - name: community.crypto
+      - name: community.general
+      - name: community.hashi_vault
+      - name: community.windows
+      - name: community.docker
+      - name: community.postgresql
+      - name: community.mysql
+      - name: community.rabbitmq
+      - name: community.grafana
+  python: |
+    git+https://github.com/ansible/ansible-sign
+    ncclient
+    paramiko
+    pykerberos
+    pyOpenSSL
+    pypsrp[kerberos,credssp]
+    pywinrm[kerberos,credssp]
+    toml
+    pexpect>=4.5
+    python-daemon
+    pyyaml
+    six
+  system: |
+    git-core [platform:rpm]
+    python3.9-devel [platform:rpm compile]
+    libcurl-devel [platform:rpm compile]
+    krb5-devel [platform:rpm compile]
+    krb5-workstation [platform:rpm]
+    subversion [platform:rpm]
+    subversion [platform:dpkg]
+    git-lfs [platform:rpm]
+    sshpass [platform:rpm]
+    rsync [platform:rpm]
+    epel-release [platform:rpm]
+    python-unversioned-command [platform:rpm]
+    unzip [platform:rpm]
+    terraform [platform:rpm]
 additional_build_steps:
-  prepend: |
-    RUN dnf config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo \
-     && dnf install -y terraform 
-  append: 
-    - RUN alternatives --set python /usr/bin/python3
-    - COPY --from=quay.io/project-receptor/receptor:latest /usr/bin/receptor /usr/bin/receptor
+  append_base:
+    - RUN $PYCMD -m pip install -U pip
+  append_final: 
+    - COPY --from=quay.io/ansible/receptor:devel /usr/bin/receptor /usr/bin/receptor
     - RUN mkdir -p /var/run/receptor
-    - ADD run.sh /run.sh
-    - CMD /run/sh
-    - USER 1000
     - RUN git lfs install
+  prepend_builder:
+    - RUN curl https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo |tee /etc/yum.repos.d/hashicorp.repo
+  prepend_final:
+    - RUN curl https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo |tee /etc/yum.repos.d/hashicorp.repo
