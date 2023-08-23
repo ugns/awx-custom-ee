@@ -39,14 +39,14 @@ jobs:
           tox -e docker
       -
         name: Configure AWS credentials by OIDC
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v3
         with:
           role-to-assume: arn:aws:iam::343598423625:role/ugns-gbl-github-actions
           role-duration-seconds: 1200
           aws-region: us-east-1
       -
         name: Assume IAM Role
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v3
         with:
           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
