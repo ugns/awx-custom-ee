@@ -33,7 +33,7 @@ jobs:
           installation_id: ${{ secrets.GH_INSTALLATION_ID }}
 
       # Drafts your next Release notes as Pull Requests are merged into "main"
-      - uses: release-drafter/release-drafter@v5
+      - uses: release-drafter/release-drafter@v6
         with:
           publish: ${{ github.event_name != 'pull_request' }}
           prerelease: ${{ github.event_name == 'pull_request' }}
